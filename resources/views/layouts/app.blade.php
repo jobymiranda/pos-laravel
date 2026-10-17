@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
     <title>@yield('title', 'Laravel POS')</title>
-    <style>
-        :root { color-scheme: light; font-family: Arial, sans-serif; }
-        body { margin: 0; background: #f4f7fb; color: #182230; }
-        header { background: #172554; color: white; padding: 1.25rem 8%; }
-        header h1 { margin: 0 0 .75rem; font-size: 1.35rem; }
-        nav a { color: #dbeafe; margin-right: 1.25rem; text-decoration: none; font-weight: 600; }
-        nav a:hover { color: white; text-decoration: underline; }
-        main { max-width: 1000px; margin: 2.5rem auto; padding: 0 1.25rem; }
-        .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 8px 24px #17255418; }
-        h2 { margin-top: 0; color: #172554; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1.25rem; }
-        th, td { border-bottom: 1px solid #dbe3ef; padding: .85rem; text-align: left; }
-        th { background: #eff6ff; color: #172554; }
-        footer { text-align: center; color: #64748b; padding: 2rem; }
-    </style>
+    <link rel="stylesheet" href="{{ asset('css/pos.css') }}">
 </head>
 <body>
-    <header>
-        <h1>Laravel POS Foundations</h1>
-        <nav aria-label="Main navigation">
-            <a href="{{ route('home') }}">Home</a>
-            <a href="{{ route('about') }}">About</a>
-            <a href="{{ route('customers') }}">Customers</a>
-            <a href="{{ route('users') }}">Users</a>
-        </nav>
-    </header>
+    <div class="app-shell">
+        <div class="sidebar-scrim" data-sidebar-close></div>
+        <aside class="sidebar" id="appSidebar">
+            <a class="brand" href="{{ route('home') }}">
+                <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span><strong>POSFORMA</strong><small>Laravel point of sale</small></span>
+            </a>
+            <nav class="sidebar-nav" aria-label="Primary navigation">
+                <p class="nav-label">Workspace</p>
+                <a class="{{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}"><span class="nav-icon">◆</span>Overview</a>
+                <a class="{{ request()->routeIs('customers') ? 'active' : '' }}" href="{{ route('customers') }}"><span class="nav-icon">●</span>Customer accounts</a>
+                <a class="{{ request()->routeIs('users') ? 'active' : '' }}" href="{{ route('users') }}"><span class="nav-icon">▲</span>User accounts</a>
+                <p class="nav-label">Reference</p>
+                <a class="{{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}"><span class="nav-icon">?</span>About the build</a>
+            </nav>
+            <div class="sidebar-note"><span>IT0049</span><strong>Form follows function.</strong><small>Laravel Foundations · TFA5</small></div>
+        </aside>
 
-    <main>@yield('content')</main>
-    <footer>IT0049 Web System Technologies</footer>
+        <div class="main-shell">
+            <header class="topbar">
+                <button class="menu-button" type="button" data-sidebar-open aria-label="Open menu"><span></span><span></span></button>
+                <div><p>{{ now()->format('l, F j') }}</p><strong>@yield('eyebrow', 'Laravel POS Foundations')</strong></div>
+                <a class="topbar-action" href="{{ route('customers') }}"><span>＋</span> Browse accounts</a>
+            </header>
+            <main class="content">@yield('content')</main>
+            <footer class="site-footer"><span>IT0049 · Web System Technologies</span><span>Laravel POS Foundations</span></footer>
+        </div>
+    </div>
+    <script src="{{ asset('js/pos.js') }}" defer></script>
 </body>
 </html>
