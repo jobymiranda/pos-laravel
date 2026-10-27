@@ -27,4 +27,12 @@ On Windows PowerShell, use `Copy-Item .env.example .env` instead of `cp`.
 - `/customers` - customer accounts
 - `/users` - user accounts
 
-Customer and user records are temporary static PHP arrays in their controllers, as required by the activity. The standard migration and seeder files are retained in `database/` for repository submission.
+Customer and user records are stored in SQLite and retrieved through Eloquent models. The schema is defined in `database/migrations`, and five sample records for each table are loaded by `database/seeders/PosSeeder.php`.
+
+## TFA6 database reset
+
+For a clean local database with sample records:
+
+```bash
+php artisan migrate:fresh --seed
+```
